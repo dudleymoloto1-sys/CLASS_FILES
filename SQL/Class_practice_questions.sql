@@ -1,0 +1,2 @@
+create database Property24_SQL_PRACTICE
+
