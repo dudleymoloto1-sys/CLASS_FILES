@@ -34,7 +34,7 @@ SELECT [PROPERTY_ID]
 
   --7. Find properties with parking for at least 2 cars.
   select * from Property_list
-  where PARKING>1
+  where PARKING>=2
 
   --8. Show properties where the monthly repayment is greater than R25,000.
   select * from Property_list
@@ -59,7 +59,7 @@ SELECT [PROPERTY_ID]
 
   --13. Show KwaZulu-Natal properties with 3 or more bedrooms.
   select * from Property_list
-  where PROVINCE='KwaZulu-Natal' and BEDROOMS=3 or BEDROOMS>3 
+  where PROVINCE='KwaZulu-Natal' and BEDROOMS>=3  
 
   --14. Find properties in Limpopo or Free State ordered by property price.
   select * from Property_list
@@ -67,61 +67,34 @@ SELECT [PROPERTY_ID]
   order by PROPERTY_PRICE
 
   --15. Show the 10 most expensive properties.
-  select top 10 [PROPERTY_ID]
-      ,[COUNTRY]
-      ,[PROVINCE]
-      ,[CITY]
-      ,[PROPERTY_PRICE]
-      ,[BEDROOMS]
-      ,[BATHROOMS]
-      ,[PARKING]
-      ,[FLOOR_SIZE]
-      ,[Monthly_Repayment]
-      ,[Total_Once_off_Costs]
-      ,[Min_Gross_Monthly_Income]
+  select top 10 *
   from Property_list
   order by PROPERTY_PRICE desc 
 
 --16. Show the 5 cheapest properties.
- select top 5 [PROPERTY_ID]
-      ,[COUNTRY]
-      ,[PROVINCE]
-      ,[CITY]
-      ,[PROPERTY_PRICE]
-      ,[BEDROOMS]
-      ,[BATHROOMS]
-      ,[PARKING]
-      ,[FLOOR_SIZE]
-      ,[Monthly_Repayment]
-      ,[Total_Once_off_Costs]
-      ,[Min_Gross_Monthly_Income]
+ select top 5 *
   from Property_list
   order by PROPERTY_PRICE asc 
 
 --17. Show the top 10 properties with the largest floor size.
- select top 10 [PROPERTY_ID]
-      ,[COUNTRY]
-      ,[PROVINCE]
-      ,[CITY]
-      ,[PROPERTY_PRICE]
-      ,[BEDROOMS]
-      ,[BATHROOMS]
-      ,[PARKING]
-      ,[FLOOR_SIZE]
-      ,[Monthly_Repayment]
-      ,[Total_Once_off_Costs]
-      ,[Min_Gross_Monthly_Income]
+  select top 10 *
   from Property_list
   order by FLOOR_SIZE desc
 
 --18. Which province appears to have the highest priced properties?
 --Western Cape
+SELECT PROVINCE,PROPERTY_PRICE
+FROM Property_list
+ORDER BY PROPERTY_PRICE DESC;
 
 --19. Which cities appear to have the most affordable housing?
-
+  select top 10 PROVINCE, CITY, Monthly_Repayment
+  from Property_list 
+  order by Monthly_Repayment asc
+  
 
 --20. What minimum income is typically required for properties priced above R4,000,000?
-  select AVG(Min_Gross_Monthly_Income)
+  select min(Min_Gross_Monthly_Income)
   from Property_list
   where PROPERTY_PRICE>4000000
-  --R110 639.00
+
